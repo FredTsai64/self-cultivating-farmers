@@ -22,6 +22,7 @@
         .slider-green::-webkit-slider-thumb { background: #10b981; }
         .slider-purple::-webkit-slider-thumb { background: #8b5cf6; }
         .slider-red::-webkit-slider-thumb { background: #ef4444; }
+        .slider-orange::-webkit-slider-thumb { background: #f97316; }
 
         .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .hidden { display: none; }
@@ -33,10 +34,9 @@
         .tab-inactive { color: #6b7280; border-bottom-width: 2px; border-color: transparent; background-color: #f9fafb; }
         .tab-inactive:hover { color: #374151; background-color: #f3f4f6; }
 
-        /* 數字輸入框移除上下箭頭 (Chrome, Safari, Edge, Opera) */
+        /* 數字輸入框移除上下箭頭 */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        /* 數字輸入框移除上下箭頭 (Firefox) */
         input[type=number] { -moz-appearance: textfield; }
     </style>
 </head>
@@ -59,7 +59,7 @@
                 
                 <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-gray-100 text-center relative group">
                     <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gray-100 text-[9px] text-gray-400 px-2 py-0.5 rounded-full whitespace-nowrap">
-                        <i class="fa-solid fa-hand-pointer mr-1"></i>滑動圖表可看各年數據
+                        <i class="fa-solid fa-hand-pointer mr-1"></i>滑動圖表可看各年齡數據
                     </div>
                     <div>
                         <div class="text-[10px] md:text-xs text-gray-500 mb-1">總投入成本</div>
@@ -92,26 +92,48 @@
             </div>
         </div>
 
-        <!-- 全新設計的 Controls Card (群組化排版 + 手動輸入) -->
+        <!-- Controls Card -->
         <div class="glass-panel rounded-2xl shadow-lg p-5 mb-6 border border-gray-100 space-y-5 relative z-10">
             <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-2"><i class="fa-solid fa-sliders text-blue-500 mr-2"></i>策略參數設定</h2>
 
-            <!-- 群組 1: 投資起點 -->
+            <!-- 群組 1: 人生時程與起點 (重新編排，結合年齡與總年限) -->
             <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 space-y-4">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2"><i class="fa-regular fa-clock mr-1"></i> 🕒 投資起點</h3>
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2"><i class="fa-regular fa-clock mr-1"></i> 🕒 人生時程與起點</h3>
                 
                 <div>
                     <div class="flex justify-between items-center mb-2">
-                        <label class="font-medium text-sm text-gray-700">總模擬年限</label>
+                        <label class="font-medium text-sm text-gray-700">目前年紀</label>
                         <div class="flex items-center bg-white border border-gray-300 rounded px-2 py-1 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
-                            <input type="number" id="num-years" min="1" max="60" value="20" class="w-12 text-right text-gray-800 font-bold outline-none text-sm bg-transparent">
-                            <span class="ml-1 text-xs text-gray-500 font-bold">年</span>
+                            <input type="number" id="num-age" min="18" max="110" step="1" value="35" class="w-12 text-right text-gray-800 font-bold outline-none text-sm bg-transparent">
+                            <span class="ml-1 text-xs text-gray-500 font-bold">歲</span>
                         </div>
                     </div>
-                    <input type="range" id="slider-years" min="10" max="60" step="1" value="20" class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <input type="range" id="slider-age" min="18" max="110" step="1" value="35" class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                 </div>
 
                 <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="font-medium text-sm text-gray-700">預計退休年紀</label>
+                        <div class="flex items-center bg-white border border-gray-300 rounded px-2 py-1 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
+                            <input type="number" id="num-retire" min="18" max="110" step="1" value="65" class="w-12 text-right text-gray-800 font-bold outline-none text-sm bg-transparent">
+                            <span class="ml-1 text-xs text-gray-500 font-bold">歲</span>
+                        </div>
+                    </div>
+                    <input type="range" id="slider-retire" min="18" max="110" step="1" value="65" class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="font-medium text-sm text-gray-700">預估壽命 (終老設定)</label>
+                        <div class="flex items-center bg-white border border-gray-300 rounded px-2 py-1 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
+                            <input type="number" id="num-lifespan" min="40" max="110" step="1" value="90" class="w-12 text-right text-gray-800 font-bold outline-none text-sm bg-transparent">
+                            <span class="ml-1 text-xs text-gray-500 font-bold">歲</span>
+                        </div>
+                    </div>
+                    <input type="range" id="slider-lifespan" min="40" max="110" step="1" value="90" class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+
+                <div class="pt-2 border-t border-gray-200">
                     <div class="flex justify-between items-center mb-2">
                         <label class="font-medium text-sm text-gray-700">初始總資產</label>
                         <div class="flex items-center bg-white border border-gray-300 rounded px-2 py-1 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
@@ -125,9 +147,17 @@
 
             <!-- 群組 2: 資金活水 -->
             <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100 space-y-4">
-                <h3 class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2"><i class="fa-solid fa-water mr-1"></i> 💧 資金活水</h3>
+                <h3 class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2"><i class="fa-solid fa-water mr-1"></i> 💧 資金活水 (工作期間)</h3>
                 
-                <!-- 新增：每月定期定額 ETF -->
+                <!-- 自動顯示：剩餘工作年限 -->
+                <div class="mb-3 pb-3 border-b border-blue-100 flex justify-between items-center">
+                    <div>
+                        <label class="font-bold text-sm text-blue-800">剩餘工作年數 <span class="text-[11px] text-blue-500 font-normal">(自動計算)</span></label>
+                        <p class="text-[10px] text-blue-600 mt-0.5 leading-tight">此為將持續投入資金之年數</p>
+                    </div>
+                    <span class="text-white font-bold bg-blue-500 px-3 py-1 rounded-lg text-sm shadow-sm" id="display-invest-years">30 年</span>
+                </div>
+
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <label class="font-medium text-sm text-gray-700">每月定額買 ETF <span class="text-xs text-gray-500 font-normal">(選填)</span></label>
@@ -149,25 +179,11 @@
                     </div>
                     <input type="range" id="slider-invest" min="0" max="500" step="1" value="0" class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                 </div>
-
-                <div class="pt-2 border-t border-blue-100">
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="font-medium text-sm text-blue-800">持續投入年數 <span class="text-xs text-blue-600 font-normal">(Coast FIRE)</span></label>
-                        <div class="flex items-center bg-white border border-blue-300 rounded px-2 py-1 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
-                            <input type="number" id="num-invest-years" min="0" max="20" step="1" value="20" class="w-12 text-right text-blue-700 font-bold outline-none text-sm bg-transparent">
-                            <span class="ml-1 text-xs text-gray-500 font-bold">年</span>
-                        </div>
-                    </div>
-                    <input type="range" id="slider-invest-years" min="0" max="20" step="1" value="20" class="w-full h-1.5 bg-blue-200 rounded-lg appearance-none cursor-pointer">
-                    <p class="text-[10px] text-blue-600 mt-2 leading-tight">
-                        設定 0 代表不再入金；低於總年限代表前期投入、後期自行滾動。
-                    </p>
-                </div>
             </div>
 
             <!-- 群組 3: 複利與提領 -->
             <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 space-y-4">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2"><i class="fa-solid fa-fire mr-1"></i> 🔥 複利與提領</h3>
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2"><i class="fa-solid fa-fire mr-1"></i> 🔥 複利與提領 (退休期間)</h3>
                 
                 <div>
                     <div class="flex justify-between items-center mb-2">
@@ -196,18 +212,23 @@
 
                 <div class="pt-2 border-t border-gray-200">
                     <div class="flex justify-between items-center mb-2">
-                        <label class="font-medium text-sm text-gray-700">首年提領生活費</label>
+                        <label class="font-medium text-sm text-gray-700">退休首年提領生活費</label>
                         <div class="flex items-center bg-white border border-red-200 rounded px-2 py-1 shadow-sm focus-within:border-red-500 focus-within:ring-1 focus-within:ring-red-500 transition-all">
-                            <input type="number" id="num-withdraw" min="0" max="500" step="1" value="50" class="w-14 text-right text-red-500 font-bold outline-none text-sm bg-transparent">
+                            <input type="number" id="num-withdraw" min="0" max="2000" step="10" value="50" class="w-14 text-right text-red-500 font-bold outline-none text-sm bg-transparent">
                             <span class="ml-1 text-xs text-gray-500 font-bold">萬</span>
                         </div>
                     </div>
-                    <input type="range" id="slider-withdraw" min="0" max="200" step="5" value="50" class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-red">
+                    <!-- 提領上限擴展至 1000 萬 -->
+                    <input type="range" id="slider-withdraw" min="0" max="1000" step="10" value="50" class="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-red">
+                    
+                    <div id="withdraw-warning-box" class="mt-3 bg-red-50 border-l-4 border-red-500 p-2.5 rounded-r text-[11px] text-red-700 font-medium leading-relaxed shadow-sm">
+                        <i class="fa-solid fa-circle-exclamation mr-1"></i><span id="withdraw-warning-text">注意：生活費將於達到法定退休年齡後才開始提領扣除。</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 資訊與導引區塊 (維持原樣) -->
+        <!-- 資訊與導引區塊 -->
         <div class="glass-panel rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
             <div class="flex border-b border-gray-200">
                 <button onclick="switchTab('tab-guide')" id="btn-tab-guide" class="flex-1 py-3 text-[13px] md:text-sm tab-btn tab-active">階段導引</button>
@@ -269,7 +290,6 @@
             num.addEventListener('input', (e) => {
                 let val = parseFloat(e.target.value);
                 if (!isNaN(val)) {
-                    // 同步滑桿，但不限制輸入框能打出的數字 (突破滑桿上限)
                     if (val >= parseFloat(slider.min) && val <= parseFloat(slider.max)) {
                         slider.value = val;
                     }
@@ -279,22 +299,44 @@
             });
         }
 
-        // 綁定所有的變數
-        bindInputs('slider-years', 'num-years', () => {
-            const totalYrs = parseInt(document.getElementById('num-years').value) || 20;
-            const investYrsSlider = document.getElementById('slider-invest-years');
-            const investYrsNum = document.getElementById('num-invest-years');
-            
-            investYrsSlider.max = totalYrs;
-            if (parseInt(investYrsNum.value) > totalYrs) {
-                investYrsSlider.value = totalYrs;
-                investYrsNum.value = totalYrs;
+        // 防呆邏輯：強制鎖定 年紀 <= 退休 <= 預估壽命
+        function validateAndSyncAge(source) {
+            let age = parseInt(document.getElementById('num-age').value) || 35;
+            let retire = parseInt(document.getElementById('num-retire').value) || 65;
+            let lifespan = parseInt(document.getElementById('num-lifespan').value) || 90;
+
+            if (source === 'age') {
+                if (age > retire) retire = age;
+                if (age > lifespan) lifespan = age;
+            } else if (source === 'retire') {
+                if (retire < age) age = retire;
+                if (retire > lifespan) lifespan = retire;
+            } else if (source === 'lifespan') {
+                if (lifespan < retire) retire = lifespan;
+                if (lifespan < age) age = lifespan;
             }
-        });
+
+            // 更新 HTML UI
+            document.getElementById('num-age').value = age;
+            document.getElementById('slider-age').value = age;
+            document.getElementById('num-retire').value = retire;
+            document.getElementById('slider-retire').value = retire;
+            document.getElementById('num-lifespan').value = lifespan;
+            document.getElementById('slider-lifespan').value = lifespan;
+
+            const investDuration = Math.max(0, retire - age);
+            document.getElementById('display-invest-years').innerText = `${investDuration} 年`;
+            document.getElementById('withdraw-warning-text').innerText = `動態連動：生活費將於達到預計退休年齡（${retire} 歲）後才開始提領扣除。`;
+        }
+
+        bindInputs('slider-age', 'num-age', () => validateAndSyncAge('age'));
+        bindInputs('slider-retire', 'num-retire', () => validateAndSyncAge('retire'));
+        bindInputs('slider-lifespan', 'num-lifespan', () => validateAndSyncAge('lifespan'));
+
+        // 其他變數綁定
         bindInputs('slider-initial', 'num-initial');
-        bindInputs('slider-etf', 'num-etf');         // 新增：每月定額 ETF
-        bindInputs('slider-invest', 'num-invest');   // 原有：每年單筆投入
-        bindInputs('slider-invest-years', 'num-invest-years');
+        bindInputs('slider-etf', 'num-etf');         
+        bindInputs('slider-invest', 'num-invest');   
         bindInputs('slider-return', 'num-return');
         bindInputs('slider-inflation', 'num-inflation');
         bindInputs('slider-withdraw', 'num-withdraw');
@@ -313,7 +355,6 @@
 
         let wealthChart = null;
         let yearlyHistory = [];
-        let totalYears = 20;
 
         const formatMoney = (num) => {
             if(num >= 10000) return (num / 10000).toFixed(2) + ' 億';
@@ -338,8 +379,8 @@
             const data = yearlyHistory[yearIndex];
             const isZeroYear = yearIndex === 0;
 
-            dashboardTitle.innerText = `FIRE長期作戰資產表 (第 ${data.year} 年)`;
-            labelRemain.innerHTML = `<i class="fa-solid fa-piggy-bank mr-1"></i>第 ${data.year} 年剩餘`;
+            dashboardTitle.innerText = `FIRE長期作戰資產表 (您 ${data.age} 歲時)`;
+            labelRemain.innerHTML = `<i class="fa-solid fa-piggy-bank mr-1"></i>${data.age} 歲剩餘`;
 
             displayFinalCapital.innerText = formatMoney(Math.max(0, data.capital));
             dashInvested.innerText = formatMoney(data.invested);
@@ -363,21 +404,28 @@
             }
         }
 
-        document.getElementById('wealthChart').addEventListener('mouseout', () => updateDashboardUI(totalYears));
-        document.getElementById('wealthChart').addEventListener('touchend', () => setTimeout(() => updateDashboardUI(totalYears), 1500));
+        document.getElementById('wealthChart').addEventListener('mouseout', () => {
+            if(yearlyHistory.length > 0) updateDashboardUI(yearlyHistory.length - 1);
+        });
+        document.getElementById('wealthChart').addEventListener('touchend', () => {
+            setTimeout(() => { if(yearlyHistory.length > 0) updateDashboardUI(yearlyHistory.length - 1); }, 1500);
+        });
 
         function calculateData() {
-            // 從 Input 框取得精確數值
-            totalYears = parseInt(document.getElementById('num-years').value) || 20;
             const initialCapital = parseFloat(document.getElementById('num-initial').value) || 0;
-            const monthlyETF = parseFloat(document.getElementById('num-etf').value) || 0;       // 每月 ETF
-            const annualSingle = parseFloat(document.getElementById('num-invest').value) || 0;  // 每年單筆
-            const investDuration = parseInt(document.getElementById('num-invest-years').value) || 0;
+            const currentAge = parseInt(document.getElementById('num-age').value) || 35;
+            const retireAge = parseInt(document.getElementById('num-retire').value) || 65;
+            const lifespan = parseInt(document.getElementById('num-lifespan').value) || 90;
+            
+            const totalYears = Math.max(0, lifespan - currentAge);
+            const investDuration = Math.max(0, retireAge - currentAge);
+
+            const monthlyETF = parseFloat(document.getElementById('num-etf').value) || 0;       
+            const annualSingle = parseFloat(document.getElementById('num-invest').value) || 0;  
             const annualReturnRate = parseFloat(document.getElementById('num-return').value) / 100 || 0;
             const inflationRate = parseFloat(document.getElementById('num-inflation').value) / 100 || 0;
             const initialWithdraw = parseFloat(document.getElementById('num-withdraw').value) || 0;
 
-            // 計算總年度投入：每月ETF * 12 + 每年單筆
             const totalAnnualInvest = annualSingle + (monthlyETF * 12);
 
             let capital = initialCapital;
@@ -394,7 +442,8 @@
             let isDepleting = false;
 
             for (let i = 0; i <= totalYears; i++) {
-                labels.push(`第 ${i} 年`);
+                let loopAge = currentAge + i;
+                labels.push(`${loopAge} 歲`); // 圖表 X 軸顯示為歲數
                 
                 if (i > 0) {
                     let actualInvestThisYear = (i <= investDuration) ? totalAnnualInvest : 0;
@@ -404,7 +453,12 @@
                     let yearReturn = yearStartCapital * annualReturnRate;
                     cumulativeReturn += yearReturn;
                     
-                    let currentWithdraw = initialWithdraw * Math.pow(1 + inflationRate, i - 1);
+                    let currentWithdraw = 0;
+                    if (i > investDuration) {
+                        // 退休後第一年 (i = investDuration + 1) 為基期
+                        let yearsInRetirement = i - investDuration;
+                        currentWithdraw = initialWithdraw * Math.pow(1 + inflationRate, yearsInRetirement - 1);
+                    }
                     cumulativeWithdraw += currentWithdraw;
                     
                     let nextCapital = yearStartCapital + yearReturn - currentWithdraw;
@@ -414,12 +468,12 @@
                         nextTarget *= 2;
                     }
                     
-                    let fireHurdle = initialWithdraw > 0 ? currentWithdraw : actualInvestThisYear;
-                    if (phase2Year === -1 && yearReturn >= fireHurdle && fireHurdle > 0) {
+                    let theoreticalWithdraw = initialWithdraw * Math.pow(1 + inflationRate, Math.max(0, i - investDuration));
+                    if (phase2Year === -1 && yearReturn >= theoreticalWithdraw && theoreticalWithdraw > 0) {
                         phase2Year = i;
                     }
                     
-                    if (nextCapital < capital && i > 5) isDepleting = true;
+                    if (nextCapital < capital && i > investDuration + 5) isDepleting = true;
 
                     capital = nextCapital;
                 }
@@ -434,18 +488,18 @@
                 let consumedPct = totalValue > 0 ? ((cumulativeWithdraw / totalValue) * 100).toFixed(1) : 0;
 
                 yearlyHistory.push({
-                    year: i, capital: capital, invested: currentInvested, withdrawn: cumulativeWithdraw,
-                    profit: currentProfit, realPower: currentRealPower, capPct: finalCapPct, 
-                    consumePct: consumedPct, inflationRate: inflationRate
+                    year: i, age: currentAge + i, capital: capital, invested: currentInvested, 
+                    withdrawn: cumulativeWithdraw, profit: currentProfit, realPower: currentRealPower, 
+                    capPct: finalCapPct, consumePct: consumedPct, inflationRate: inflationRate
                 });
             }
             
             updateDashboardUI(totalYears);
-            updateChart(labels, dataPoints, milestones, phase2Year);
-            updateAnalysis(capital, cumulativeInvest, cumulativeReturn, milestones, phase2Year, isDepleting, totalAnnualInvest, initialWithdraw, annualReturnRate, initialCapital, yearlyHistory[totalYears].realPower, inflationRate, cumulativeWithdraw, investDuration, totalYears);
+            updateChart(labels, dataPoints, milestones, phase2Year, currentAge, totalYears);
+            updateAnalysis(capital, cumulativeInvest, cumulativeReturn, milestones, phase2Year, isDepleting, totalAnnualInvest, initialWithdraw, annualReturnRate, initialCapital, yearlyHistory[totalYears].realPower, inflationRate, cumulativeWithdraw, investDuration, totalYears, currentAge, retireAge, lifespan);
         }
 
-        function updateChart(labels, data, milestones, p2) {
+        function updateChart(labels, data, milestones, p2, currentAge, totalYears) {
             const ctx = document.getElementById('wealthChart').getContext('2d');
             if (wealthChart) wealthChart.destroy();
 
@@ -474,7 +528,7 @@
                     type: 'line', xMin: p2, xMax: p2,
                     borderColor: 'rgba(234, 179, 8, 0.9)', borderWidth: 2, borderDash: [5, 5],
                     label: {
-                        display: true, content: '🌟 黃金交叉', position: 'end',
+                        display: true, content: '🌟 財務自由', position: 'end',
                         backgroundColor: 'rgba(234, 179, 8, 0.9)', color: 'white', font: { size: 11, family: 'PingFang TC' }, yAdjust: 10
                     }
                 };
@@ -495,7 +549,13 @@
                     onHover: (event, activeElements) => { if (activeElements && activeElements.length > 0) updateDashboardUI(activeElements[0].index); },
                     plugins: {
                         legend: { display: false }, annotation: { annotations: annotations }, 
-                        tooltip: { backgroundColor: 'rgba(17, 24, 39, 0.9)', titleFont: { size: 13, family: 'PingFang TC' }, bodyFont: { size: 14, weight: 'bold', family: 'PingFang TC' }, callbacks: { label: function(context) { return ' 帳面資產: ' + Math.round(context.raw).toLocaleString('zh-TW') + ' 萬'; } } }
+                        tooltip: { 
+                            backgroundColor: 'rgba(17, 24, 39, 0.9)', titleFont: { size: 13, family: 'PingFang TC' }, bodyFont: { size: 14, weight: 'bold', family: 'PingFang TC' }, 
+                            callbacks: { 
+                                title: function(context) { return context[0].label; }, // 提示框標題直接顯示「XX 歲」
+                                label: function(context) { return ' 帳面資產: ' + Math.round(context.raw).toLocaleString('zh-TW') + ' 萬'; } 
+                            } 
+                        }
                     },
                     scales: {
                         x: { grid: { display: false }, ticks: { maxTicksLimit: 6, color: '#9ca3af', font: {size: 10} } },
@@ -505,7 +565,7 @@
             });
         }
 
-        function updateAnalysis(finalCap, totalInv, totalRet, milestones, p2, depleting, totalAnnualInvest, initialWd, rate, initialCap, realPurchasingPower, inflation, cumulativeWd, investDuration, currentTotalYears) {
+        function updateAnalysis(finalCap, totalInv, totalRet, milestones, p2, depleting, totalAnnualInvest, initialWd, rate, initialCap, realPurchasingPower, inflation, cumulativeWd, investDuration, currentTotalYears, currentAge, retireAge, lifespan) {
             let html = '';
 
             if (finalCap <= 0) {
@@ -514,7 +574,7 @@
                     <div class="mt-0.5 mr-3 text-red-500"><i class="fa-solid fa-triangle-exclamation"></i></div>
                     <div>
                         <h3 class="text-sm font-bold text-red-800">資產枯竭警告</h3>
-                        <p class="text-xs text-red-600 mt-1">您設定的提領金額過高（或被通膨嚴重侵蝕），導致資產在 ${currentTotalYears} 年內歸零。</p>
+                        <p class="text-xs text-red-600 mt-1">您設定的提領金額過高（或被通膨嚴重侵蝕），導致資產在退休生活期間（您 ${lifespan} 歲前）提早歸零。</p>
                     </div>
                 </div>`;
             } else if (depleting) {
@@ -522,17 +582,15 @@
                 <div class="flex items-start bg-orange-50 p-3 rounded-lg border border-orange-100">
                     <div class="mt-0.5 mr-3 text-orange-500"><i class="fa-solid fa-scale-unbalanced"></i></div>
                     <div>
-                        <h3 class="text-sm font-bold text-orange-800">入不敷出階段 (通膨侵蝕)</h3>
-                        <p class="text-xs text-orange-600 mt-1">隨著通膨推升生活費，目前的提領金額已大於投資獲利，雖然能維持當下生活，但資本正在萎縮。</p>
+                        <h3 class="text-sm font-bold text-orange-800">退休入不敷出階段 (通膨侵蝕)</h3>
+                        <p class="text-xs text-orange-600 mt-1">隨著通膨推升生活費，退休後的提領金額已大於被動獲利，雖然能維持當下生活，但養老資本正在萎縮。</p>
                     </div>
                 </div>`;
             } else {
                 let investText = '';
                 if (totalAnnualInvest > 0) {
-                    if (investDuration < currentTotalYears) {
-                        investText = `並在前 <b>${investDuration}</b> 年每年合計投入 ${totalAnnualInvest} 萬後讓資本自行滾動，`;
-                    } else {
-                        investText = `並維持每年合計投入 ${totalAnnualInvest} 萬的紀律，`;
+                    if (investDuration > 0) {
+                        investText = `並在退休前（<b>${retireAge} 歲前</b>）每年合計投入 ${totalAnnualInvest} 萬後讓資本自行滾動，`;
                     }
                 }
 
@@ -543,14 +601,14 @@
                         <div class="w-0.5 h-full bg-gray-200 -mt-2"></div>
                     </div>
                     <div class="ml-9 pb-4">
-                        <h3 class="text-sm font-bold text-gray-800">指數翻倍的爆發點</h3>
+                        <h3 class="text-sm font-bold text-gray-800">動能累積期</h3>
                         <p class="text-xs text-gray-500 mt-1 leading-relaxed">
                             ${initialCap > 0 
-                                ? `以 ${formatMoney(initialCap)} 作為基石，${investText}在 ${rate*100}% 的年報酬率推動下，資產穩健向上。`
-                                : `前 ${investDuration} 年資產增長主要來自於您每年合計投入的 ${totalAnnualInvest} 萬。`
+                                ? `以目前 ${formatMoney(initialCap)} 作為基石，${investText}在 ${rate*100}% 的年報酬率推動下，資產穩健向上。`
+                                : `退休前（${retireAge}歲前）資產增長主要來自於您每年持續投入的 ${totalAnnualInvest} 萬。`
                             }
                         </p>
-                        ${milestones.length > 0 ? `<div class="mt-2 text-xs bg-gray-100 text-gray-600 inline-block px-2 py-1 rounded">圖表標示 1️⃣：約在第 <b>${milestones[0].year}</b> 年達成 ${formatMoney(milestones[0].target)} 的 1st 翻倍。</div>` : ''}
+                        ${milestones.length > 0 ? `<div class="mt-2 text-xs bg-gray-100 text-gray-600 inline-block px-2 py-1 rounded">圖表標示 1️⃣：約在您 <b>${currentAge + milestones[0].year}</b> 歲時，達成 ${formatMoney(milestones[0].target)} 的 1st 翻倍。</div>` : ''}
                     </div>
                 </div>`;
 
@@ -562,9 +620,9 @@
                             <div class="w-0.5 h-full bg-gray-200 -mt-2"></div>
                         </div>
                         <div class="ml-9 pb-4">
-                            <h3 class="text-sm font-bold text-gray-800">第二階段：黃金交叉期 (轉捩點)</h3>
+                            <h3 class="text-sm font-bold text-gray-800">黃金交叉 (達成財務自由)</h3>
                             <p class="text-xs text-gray-500 mt-1 leading-relaxed">
-                                大約在第 <b>${p2}</b> 年迎來偉大的時刻 (圖表標示 🌟)！這一年，<b>投資組合的被動獲利，正式超越了您的生活提領額。</b>
+                                大約在您 <b>${currentAge + p2}</b> 歲時迎來偉大的時刻 (圖表標示 🌟)！這一年，<b>投資組合的被動獲利，理論上正式超越了您退休後的生活提領額。</b>
                             </p>
                         </div>
                     </div>`;
@@ -576,11 +634,11 @@
                         <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold z-10"><i class="fa-solid fa-3"></i></div>
                     </div>
                     <div class="ml-9 w-full">
-                        <h3 class="text-sm font-bold text-gray-800">第三階段：FIRE 圓夢收割期</h3>
-                        <p class="text-xs text-gray-500 mt-1 leading-relaxed mb-2">到了第 <b>${currentTotalYears}</b> 年，龐大的基數仍讓整體資產呈現增長。</p>
+                        <h3 class="text-sm font-bold text-gray-800">模擬期末結算</h3>
+                        <p class="text-xs text-gray-500 mt-1 leading-relaxed mb-2">到了您 <b>${lifespan}</b> 歲時，龐大的基數仍讓整體資產呈現增長，成功通過壓力測試。</p>
                         <div class="mt-2 text-xs bg-purple-50 border border-purple-100 text-purple-800 p-3 rounded-lg leading-relaxed shadow-sm">
                             <div class="font-bold border-b border-purple-200 pb-1 mb-1">通膨試算報告 (${inflation*100}%)</div>
-                            第 ${currentTotalYears} 年帳面總值：<b>${formatMoney(finalCap)}</b><br>
+                            您 ${lifespan} 歲時的帳面總值：<b>${formatMoney(finalCap)}</b><br>
                             經通膨折算後，約等同於現在的 <b>${formatMoney(realPurchasingPower)}</b> 購買力。
                             ${realPurchasingPower >= 10000 ? '<div class="mt-1 text-green-600 font-bold"><i class="fa-solid fa-check-circle mr-1"></i>恭喜！實質購買力成功達成一億元目標！</div>' : ''}
                         </div>
@@ -591,7 +649,8 @@
             analysisContainer.innerHTML = html;
         }
 
-        // 啟動首次計算
+        // 啟動首次計算並觸發年紀邏輯同步
+        validateAndSyncAge('age');
         calculateData();
 
     </script>
